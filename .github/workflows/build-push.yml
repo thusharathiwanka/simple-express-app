@@ -3,6 +3,8 @@ name: Build docker image and push to dockerhub
 on:
   push:
     branches: [master]
+    tags:
+      - "v*"
   pull_request:
     branches: [master]
 
@@ -25,3 +27,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simple-express-app:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/simple-express-app:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/simple-express-app:buildcache,mode=max
