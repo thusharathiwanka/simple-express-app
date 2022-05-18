@@ -32,3 +32,9 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simple-express-app:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/simple-express-app:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/simple-express-app:buildcache,mode=max
+      - name: Authorization with Config File
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: get pods
